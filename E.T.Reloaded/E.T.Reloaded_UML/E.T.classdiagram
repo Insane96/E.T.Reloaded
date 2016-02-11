@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="b2488950-55ea-4078-b862-3d371926022a" name="E.T" linkedPackageId="025a58cb-9e46-48dd-b69b-47b5230525d8" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="0bb65d06-c1f6-4c1e-990d-fd216b7b5dc7">
+      <profileInstance Id="62baa984-45c8-496e-8c65-232a9fbce300" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="8075dd4c-e8ac-4da3-a86c-62f8a0942570">
+      <profileInstance Id="0c9bf4da-5317-4534-923d-de048f78a7a5" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="e1273a3c-1fe4-45f8-b7c4-d2c69a546b29" name="Move" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="007b1cd5-4180-4c82-a9cf-9902650c8c78" />
+        <targetEnds>
+          <association Id="6d17349c-53ca-4f9e-8409-087ea96497a4" isDerived="false" sourceEndRoleName="Move" targetEndRoleName="Action" isLeaf="false" isAbstract="false">
+            <classMoniker Id="1dd462c4-53c9-4b4b-8243-ff0f5f18f1de" LastKnownName="Action" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1668ebf0-195e-478c-b59e-73efb44305bd" name="Move" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="024da4e8-4b8f-4594-8c9f-daeb9eea9871" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="db0d8763-c550-4364-920f-235fb3657d07" name="Action" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="951b8f8a-a8de-4d6c-bfad-ab69155dddb8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6ee9e4f7-67f6-4d6d-a185-c3729aafdb16" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="8de2818a-ab55-4aff-9ca7-6f9631b55dc9" name="ItemsCollision" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ce9d14cd-54de-472e-bcf7-4a8650613c51" />
+        <targetEnds>
+          <association Id="a7376a1c-dc27-4970-8a4d-2a620de526a4" isDerived="false" sourceEndRoleName="ItemsCollision" targetEndRoleName="Collision" isLeaf="false" isAbstract="false">
+            <classMoniker Id="48f9d4a3-5f24-4e84-976e-26b184b108b7" LastKnownName="Collision" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="46dadd46-8067-408c-b9c8-cf932a7f2783" name="ItemsCollision" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="dc493ee4-582b-4d96-bc38-0eda44bc9b92" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5b663846-746a-4094-992e-8a640ebd8c45" name="Collision" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="17377ac3-20aa-4fcf-a258-3794bb8a7ead" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a98b7284-7ae9-4d70-b230-59e3565aa28a" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="48f9d4a3-5f24-4e84-976e-26b184b108b7" name="Collision" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c6c82f1e-ad32-4bae-b284-ff425fc8e62b" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="1dd462c4-53c9-4b4b-8243-ff0f5f18f1de" name="Action" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f129897b-42c4-495c-bbe8-1af8ad5b78cf" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="8e272435-9948-40ad-b14b-e95eb0e0698f" name="Fly" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f8089526-abc7-4f6e-9270-f43bab4daf9e" />
+        <targetEnds>
+          <association Id="d0babd0a-816a-4f2a-933c-478c13b19224" isDerived="false" sourceEndRoleName="Fly" targetEndRoleName="Action" isLeaf="false" isAbstract="false">
+            <classMoniker Id="1dd462c4-53c9-4b4b-8243-ff0f5f18f1de" LastKnownName="Action" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9a91501e-fd63-4428-a68d-d9f87c8e81e4" name="Fly" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c6a0b196-ae82-4c6b-89f9-354ed1a800c3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bcbbda94-9cbb-46c9-a466-4504f1f5ab79" name="Action" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="25030f9d-d674-4e6b-853f-519e1d973640" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6c8dfde5-8715-45d3-9edd-4ea4c3bdacb9" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7154db75-59f4-4f3b-8bd6-e90801ad588a" name="ChangeRoom" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="83d40b39-5605-434a-a008-4aa7653e2098" />
+        <targetEnds>
+          <association Id="975a98ee-55df-4a16-af3b-556f72e33be9" isDerived="false" sourceEndRoleName="ChangeRoom" targetEndRoleName="GameLevel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="be88b755-05eb-4aa1-b21f-25b4a1edcb83" LastKnownName="GameLevel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="abaf0291-32fc-40e5-9c61-79e6c453cd84" name="ChangeRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="13a1e3b0-ee19-4750-9ef5-eee1ecbdeb12" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4f63ffa7-a388-47ce-b1b1-a504f1ab6089" name="GameLevel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="35daf1cf-c244-4af1-8bcc-b804d22d30aa" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="98bb8333-62a2-46b7-940a-153b4fe474ea" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2643b650-327e-480e-9ade-6e42003b2d7f" name="Al" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1ba316de-88c4-4bf7-b5b6-0fb27736cb3d" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7065e031-6647-41e7-807d-61fec2db7dcb" name="City" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="faa276f8-63ba-4d0a-bb0f-508b67f6d658" />
+        <targetEnds>
+          <association Id="8d0e3bf3-620b-4b5b-865b-5075f38291da" isDerived="false" sourceEndRoleName="City" targetEndRoleName="GameLevel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="be88b755-05eb-4aa1-b21f-25b4a1edcb83" LastKnownName="GameLevel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a9f952a0-8ca9-4a52-af68-25b6517c5fd8" name="City" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="860ee37f-1275-4ea7-a2a6-13f29cf38ee8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a10a6b80-e925-4fae-9e53-675ed2bafdab" name="GameLevel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="ebbedf76-e4a2-4056-81c2-96472c73d386" name="Lower" value="0">
+                      <elementDefinition Id="f8e35d1a-4876-4b07-97df-2a30e9bde0f8" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="33b6fff8-6bc1-42fb-abd5-279718b643c8" name="Upper" value="0">
+                      <elementDefinition Id="dfbc1ee8-906f-4024-b989-9a256cb49b94" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="bd1ecc9a-a49d-4e4c-bc23-be4c24e7d91e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2e02fd92-93b6-4c87-82b1-9a9c7ccbefbb" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="8b94fbb9-9554-43ac-8b87-06375c79ac12" name="ItemsSpawn" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c2cb9ffa-a23c-46c1-898e-3232d72fac99" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="b8231c51-b5a0-4b74-89d6-f4c9bc6123ef" name="LandingSpaceship" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="326224ba-5465-4f74-bae1-09e869969a84" />
+        <targetEnds>
+          <association Id="a9e96409-fc54-4ecf-98c4-c48bd92e4840" isDerived="false" sourceEndRoleName="LandingSpaceship" targetEndRoleName="bushes" isLeaf="false" isAbstract="false">
+            <classMoniker Id="cefdf057-ca39-4511-addd-eeb26ab5dde3" LastKnownName="bushes" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="75ae8284-d983-45be-8307-2fa68f0f6e18" name="LandingSpaceship" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="3db9cecd-f55f-4548-acce-556707e77d45" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6b534710-4cd6-46bb-a1a3-fff0e268258a" name="bushes" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f864f29e-52bf-4666-b6c9-33a8c08826be" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1a089ab5-034a-4112-8bbd-cc80aefe1e15" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="ca215913-d496-4c2d-8b87-988be901f917" name="Death" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="5d9faba3-1afc-4c16-be5a-0acce5b27805" />
+        <targetEnds>
+          <association Id="c4048a9e-9979-4b5a-a473-94572322d845" isDerived="false" sourceEndRoleName="Death" targetEndRoleName="Action" isLeaf="false" isAbstract="false">
+            <classMoniker Id="1dd462c4-53c9-4b4b-8243-ff0f5f18f1de" LastKnownName="Action" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d7b39f77-c9a1-46e8-9225-24d0af677b8f" name="Death" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4dacc2e5-2e6f-4b46-bc7a-2dfe913e0492" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="87cba246-e7ed-460f-b8da-b015dca46968" name="Action" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f3add6d9-3a53-4bd0-beda-198ba9bf0983" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="03a65d7b-8285-4924-8e90-cc4e43b64bd8" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2e48ce00-a224-4431-87ba-52025b14a23d" name="Respawn" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b4c912dd-8796-4f5f-8504-6b0189052cef" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="be88b755-05eb-4aa1-b21f-25b4a1edcb83" name="GameLevel" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="28ffbb07-51a9-4485-8072-e5e516fbc4db" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cefdf057-ca39-4511-addd-eeb26ab5dde3" name="bushes" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="69fdff6a-62d7-4d84-b676-b3440f2f4c75" />
+        <targetEnds>
+          <association Id="3f15117b-a60a-44f2-8162-4c8bedd2bb7c" isDerived="false" sourceEndRoleName="bushes" targetEndRoleName="GameLevel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="be88b755-05eb-4aa1-b21f-25b4a1edcb83" LastKnownName="GameLevel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="13de89d8-b410-4862-8654-20fadad1fedc" name="bushes" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f2fa8549-fda1-4430-adb1-22983ee48ae5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2de9fe31-65c1-447b-9c36-6bed632e4915" name="GameLevel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="245d40ff-d75e-4b32-88a5-3fa9d35547b9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="854c012f-4aa0-489f-b3e6-cf8ae0f4d6c9" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cb05add7-57d3-4b46-aee9-a35ab41fc4fe" name="Hole/shaft" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e3693036-a0dc-4bf8-86a3-9eaf20d1fa1d" />
+        <targetEnds>
+          <association Id="846e6ab7-7f9f-4ee2-96d2-5e77d6871ba1" isDerived="false" sourceEndRoleName="Hole/shaft" targetEndRoleName="GameLevel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="be88b755-05eb-4aa1-b21f-25b4a1edcb83" LastKnownName="GameLevel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8778a43c-0269-4dc9-8e06-36c4125c3c1d" name="Hole/shaft" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="fcc78d54-b277-4569-9069-5c49c2661ccf" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="599742f1-9ee1-423a-9be6-5028354aab72" name="GameLevel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="720e0201-8222-462b-a475-5bb785652a93" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="89490df1-c7b6-4507-ba41-77f2b82eceb9" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="025a58cb-9e46-48dd-b69b-47b5230525d8" name="E.T.Reloaded_UML">
+    <elementDefinition Id="a7d51afb-f59f-47f5-a42f-17966a2ad921" />
+  </package>
+</logicalClassDesignerModel>

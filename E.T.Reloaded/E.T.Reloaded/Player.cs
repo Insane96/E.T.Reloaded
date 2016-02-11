@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Aiv.Fast2D;
 
 namespace E.T.Reloaded
 {
-    class Program
+    class Player
     {
-        static void Main(string[] args)
+        public float nrg { get; set; }
+
+        public Player(string v1, int v2, int v3, int v4, int v5)
         {
+
         }
     }
 }
