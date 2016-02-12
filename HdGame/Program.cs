@@ -10,7 +10,8 @@ namespace HdGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Yo");
+            GameManager.Instance.AddObject("game", new Game());
+            GameManager.Instance.Run();
         }
     }
 }
