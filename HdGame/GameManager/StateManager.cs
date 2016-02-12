@@ -21,6 +21,7 @@ namespace HdGame
             Frequency = 1/fps;
             Loop = loop;
             Textures = new List<TexturePart>();
+            Playing = true;
         }
 
         public StateManager Clone()
