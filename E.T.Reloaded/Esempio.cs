@@ -6,15 +6,7 @@ using System.Threading.Tasks;
 
 namespace E.T.Reloaded
 {
-    class Program
+    class Esempio
     {
-        static void Main(string[] args)
-        {
-
-
-            var var = 0;
-
-
-        }
     }
 }
