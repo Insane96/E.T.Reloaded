@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Aiv.Fast2D;
 using OpenTK;
@@ -130,6 +131,20 @@ namespace HdGame
         public void Draw(Sprite sprite)
         {
             sprite.DrawTexture(Texture, (int) X, (int) Y, (int) Width, (int) Height);
+        }
+
+        public static List<TexturePart> LoadSpriteSheet(string fileName, int cols, int rows)
+        {
+            var results = new List<TexturePart>();
+            var spriteSheet = new TexturePart(fileName);
+            var spriteSize = new Vector2(spriteSheet.Width / cols, spriteSheet.Height / rows);
+            for (var col = 0; col < cols; col++)
+                for (var row = 0; row < rows; row++)
+                    results.Add(new TexturePart(
+                        fileName, col * spriteSize.X, row * spriteSize.Y,
+                        spriteSize.X, spriteSize.Y));
+            Debug.WriteLine("Loaded Sprite Sheet: " + fileName);
+            return results;
         }
     }
 }

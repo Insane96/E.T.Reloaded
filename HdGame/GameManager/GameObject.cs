@@ -75,6 +75,7 @@ namespace HdGame
             CurrentTexture = state.CurrentTexture;
         }
 
+        // default to 0, so putting Idle state on States[0] is a nice idea  
         public int CurrentState { get; set; }
 
         public List<StateManager> States { get; }

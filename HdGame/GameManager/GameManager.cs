@@ -13,9 +13,10 @@ namespace HdGame
 
         private GameManager()
         {
+            // 20 meters camera, so objects need to have dimensions similiar to reality
+            Context.orthographicSize = 10f;
             Window = new Window(1920, 1080, "E.T. HD", false);
             Camera = new Camera(0, 0);
-            Context.orthographicSize = 1000f; // 20 meters
 
             Objects = new Dictionary<string, GameObject>();
             SortedObjects = new SortedSet<GameObject>(new GameObjectComparer());
