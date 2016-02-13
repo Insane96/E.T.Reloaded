@@ -7,10 +7,10 @@ namespace HdGame
     // e.g. trees, candies, phones, decorations
     public class World
     {
-        public Tuple<Vector2, Vector2> Boundings { get; }
-        public World(Tuple<Vector2, Vector2> boundings = null)
+        public Bounds Boundings { get; }
+        public World(Bounds boundings = null)
         {
-            Boundings = boundings ?? Tuple.Create(new Vector2(-500f, -500f), new Vector2(500f, 500f));
+            Boundings = boundings ?? new Bounds(Vector2.Zero, new Vector2(500f, 500f));
             SpawnTrees();
             SpawnRoads();
             SpawnCandies();

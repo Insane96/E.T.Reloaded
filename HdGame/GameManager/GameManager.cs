@@ -59,6 +59,7 @@ namespace HdGame
                 Window.Update();
                 DeltaTime = Window.deltaTime;
                 Time += DeltaTime;
+                Physics.UpdateCollisions();
                 // clone dictionary before looping, so it can be modified inplace
                 foreach (var pair in SortedObjects.ToDictionary(key => key, value => value))
                 {

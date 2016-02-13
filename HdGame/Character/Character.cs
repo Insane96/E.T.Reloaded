@@ -27,6 +27,7 @@ namespace HdGame
 
         private void MovementHandler()
         {
+            LastPosition = position;
             MovingVector.Normalize();
             // use length? this should be faster?
             if (MovingVector.X != 0 || MovingVector.Y != 0)
@@ -50,7 +51,13 @@ namespace HdGame
                 else
                     CurrentState = (int) (VelocityVector.X >= 0 ? CharacterStates.MovingRight : CharacterStates.MovingLeft);
             }
-            Console.WriteLine("Current State: " + CurrentState);
         }
+        public override void OnCollision(Collision collision)
+        {
+            base.OnCollision(collision);
+            position = LastPosition;
+        }
+
+        public Vector2 LastPosition { get; private set; }
     }
 }

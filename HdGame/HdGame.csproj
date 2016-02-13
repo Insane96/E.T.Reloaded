@@ -50,10 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character\Character.cs" />
+    <Compile Include="GameManager\Collision.cs" />
     <Compile Include="GameManager\Game.cs" />
     <Compile Include="GameManager\GameManager.cs" />
     <Compile Include="GameManager\GameObject.cs" />
     <Compile Include="Character\Player.cs" />
+    <Compile Include="GameManager\Bounds.cs" />
+    <Compile Include="GameManager\Physics.cs" />
     <Compile Include="World\World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

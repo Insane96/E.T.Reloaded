@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Aiv.Fast2D;
 
 namespace HdGame
@@ -10,19 +11,29 @@ namespace HdGame
         public delegate void DestroyEventHandler(object sender);
         public event DestroyEventHandler OnDestroy;
 
+        public List<Bounds> Hitboxes { get; private set; }
+        public List<Collision> Collisions { get; private set; } 
+
         public bool Disposed { get; private set; }
         private int order;
 
         public GameObject(float width, float height) : base(width, height)
         {
-            States = new List<StateManager>();
+            Init();
         }
 
         // should create another class that doesn't inherit sprite...
         // (ignore if using only 1-2 gameobjects that doesn't draw anything in whole game?)
         public GameObject() : base(1, 1)
         {
+            Init();
+        }
+
+        private void Init()
+        {
             States = new List<StateManager>();
+            Hitboxes = new List<Bounds>();
+            Collisions = new List<Collision>();
         }
 
         public void Destroy()
@@ -78,7 +89,7 @@ namespace HdGame
         // default to 0, so putting Idle state on States[0] is a nice idea  
         public int CurrentState { get; set; }
 
-        public List<StateManager> States { get; }
+        public List<StateManager> States { get; private set; }
 
         public TexturePart CurrentTexture { get; private set; }
 
@@ -95,6 +106,10 @@ namespace HdGame
         // setted by gamemanager, used to compare two objects with same order
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public virtual void OnCollision(Collision collision)
+        {
+        }
     }
 
     public class GameObjectComparer : IComparer<GameObject>
