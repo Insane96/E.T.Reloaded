@@ -18,6 +18,10 @@ namespace HdGame
                     continue;
                 foreach (GameObject obj2 in objects)
                 {
+                    // untested mask
+                    if ((obj1.CollisionMask != null && !obj1.CollisionMask(obj2)) ||
+                        (obj2.CollisionMask != null && !obj2.CollisionMask(obj1)))
+                        continue;
                     pairs.Add(Tuple.Create(obj1, obj2));
                 }
             }
