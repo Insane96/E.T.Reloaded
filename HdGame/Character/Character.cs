@@ -5,7 +5,7 @@ namespace HdGame
 {
     public class Character : GameObject
     {
-        private float minVelocity = 0.1f;
+        private float minVelocity = 0.75f;
         protected Vector2 MovingVector { get; set; }
         protected Vector2 VelocityVector { get; private set; }
         protected float Speed { get; set; }
@@ -58,6 +58,6 @@ namespace HdGame
             position = LastPosition;
         }
 
-        public Vector2 LastPosition { get; private set; }
+        public Vector2 LastPosition { get; set; }
     }
 }

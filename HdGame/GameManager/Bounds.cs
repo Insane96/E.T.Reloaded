@@ -19,8 +19,14 @@ namespace HdGame
             Size = extents*2;
         }
 
+        public Bounds(string name, Vector2 center, Vector2 extents) : this(center, extents)
+        {
+            Name = name;
+        }
+
         public Bounds(GameObject gameObject) : 
-            this(Vector2.Zero, new Vector2(gameObject.Width/2, gameObject.Height/2))
+            this(new Vector2(gameObject.Width / 2, gameObject.Height / 2), 
+                new Vector2(gameObject.Width/2, gameObject.Height/2))
         {
         }
 

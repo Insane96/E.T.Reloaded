@@ -38,6 +38,8 @@ namespace HdGame
             };
             Objects[name] = gameObject;
             SortedObjects.Add(gameObject);
+
+            gameObject.Start();
         }
         // "RemoveObject" is automatically called on object destroy.
 

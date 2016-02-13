@@ -14,7 +14,7 @@ namespace HdGame
 
             var playerIdle = TexturePart.LoadSpriteSheet("et_old_idle.png", 5, 1);
             var playerMovingRight = TexturePart.LoadSpriteSheet("et_old_right.png", 5, 1);
-            var aratio = playerIdle[0].Width/playerIdle[0].Height;
+            var aratio = playerIdle[0].Height / playerIdle[0].Width;
             // large 1meter
             Player = new Player(1f, 1f * aratio);
             Player.Hitboxes.Add(new Bounds(Player));

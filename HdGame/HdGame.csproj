@@ -57,6 +57,8 @@
     <Compile Include="Character\Player.cs" />
     <Compile Include="GameManager\Bounds.cs" />
     <Compile Include="GameManager\Physics.cs" />
+    <Compile Include="GameManager\TimerManager.cs" />
+    <Compile Include="World\Pit.cs" />
     <Compile Include="World\World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

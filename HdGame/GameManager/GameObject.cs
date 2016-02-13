@@ -14,7 +14,10 @@ namespace HdGame
         // if not null this function is used to check if two gameobjects can collide
         public Func<GameObject, bool> CollisionMask; 
         public List<Bounds> Hitboxes { get; private set; }
-        public List<Collision> Collisions { get; private set; } 
+        public List<Collision> Collisions { get; private set; }
+
+        private TimerManager timer; // do not use directly
+        public TimerManager Timer => timer ?? (timer = new TimerManager(this));
 
         public bool Disposed { get; private set; }
         private int order;
@@ -47,9 +50,18 @@ namespace HdGame
             }
         }
 
+        public virtual void OnCollision(Collision collision)
+        {
+        }
+
+        public virtual void Start()
+        {
+        }
+
         public new virtual void Update()
         {
             base.Update();
+            timer?.Update();
             CalculateTexture();
             CurrentTexture?.Draw(this);
         }
@@ -109,9 +121,6 @@ namespace HdGame
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual void OnCollision(Collision collision)
-        {
-        }
     }
 
     public class GameObjectComparer : IComparer<GameObject>
