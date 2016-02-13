@@ -11,8 +11,7 @@ namespace HdGame
         public delegate void DestroyEventHandler(object sender);
         public event DestroyEventHandler OnDestroy;
 
-        // if not null this function is called everytime a collision happen
-        //  if it returns false then the collision is ignored
+        // if not null this function is used to check if two gameobjects can collide
         public Func<GameObject, bool> CollisionMask; 
         public List<Bounds> Hitboxes { get; private set; }
         public List<Collision> Collisions { get; private set; } 

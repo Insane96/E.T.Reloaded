@@ -10,7 +10,7 @@ namespace HdGame
         public Bounds Boundings { get; }
         public World(Bounds boundings = null)
         {
-            Boundings = boundings ?? new Bounds(Vector2.Zero, new Vector2(500f, 500f));
+            Boundings = boundings ?? new Bounds(Vector2.Zero, new Vector2(200f, 200f));
             SpawnTrees();
             SpawnRoads();
             SpawnCandies();
