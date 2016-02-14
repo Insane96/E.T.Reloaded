@@ -18,6 +18,8 @@ namespace HdGame
             { KeyCode.D, new Vector2(1, 0) }
         };
 
+        private readonly float cameraFollowSpeed = 1.5f;
+
         public Player(float width, float height) : base(width, height)
         {
             Score = 0;
@@ -42,7 +44,7 @@ namespace HdGame
         {
             GameManager.Instance.Camera.position = Vector2.Lerp(
                 GameManager.Instance.Camera.position, position,
-                GameManager.Instance.DeltaTime);
+                GameManager.Instance.DeltaTime * cameraFollowSpeed);
         }
 
         private void ManageControls()

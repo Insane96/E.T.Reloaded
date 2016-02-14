@@ -24,11 +24,14 @@ namespace HdGame
             Name = name;
         }
 
-        public Bounds(GameObject gameObject) : 
-            this(new Vector2(gameObject.Width / 2, gameObject.Height / 2), 
-                new Vector2(gameObject.Width/2, gameObject.Height/2))
-        {
-        }
+        public Bounds(GameObject gameObject) :
+            this(new Vector2(gameObject.Width / 2, gameObject.Height / 2),
+                new Vector2(gameObject.Width / 2, gameObject.Height / 2))
+        { }
+        public Bounds(TexturePart texturePart) :
+            this(new Vector2(texturePart.Width / 2, texturePart.Height / 2),
+                new Vector2(texturePart.Width / 2, texturePart.Height / 2))
+        { }
 
         public static Bounds operator +(Bounds b, Vector2 v)
         {

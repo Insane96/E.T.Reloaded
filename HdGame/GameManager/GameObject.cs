@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aiv.Fast2D;
+using OpenTK;
 
 namespace HdGame
 {
@@ -18,6 +19,8 @@ namespace HdGame
 
         private TimerManager timer; // do not use directly
         public TimerManager Timer => timer ?? (timer = new TimerManager(this));
+
+        public Vector2 Size => new Vector2(Width, Height);
 
         public bool Disposed { get; private set; }
         private int order;
