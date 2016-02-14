@@ -39,15 +39,6 @@ namespace HdGame
             GameManager.Instance.AddObject($"{Name}_pitZone", pitZone);
         }
 
-        public Pit Clone()
-        { // not a complete clone, but we're cloning what we need here
-            var pit = new Pit(Width, Height);
-            foreach (var state in States)
-            {
-                pit.States.Add(state.Clone());
-            }
-            return pit;
-        }
         public override void OnCollision(Collision collision)
         {
             var player = collision.GameObject as Player;

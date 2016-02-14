@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Aiv.Fast2D;
 using OpenTK;
 
@@ -37,7 +38,7 @@ namespace HdGame
             Init();
         }
 
-        private void Init()
+        protected void Init()
         {
             States = new List<StateManager>();
             Hitboxes = new List<Bounds>();
@@ -124,6 +125,20 @@ namespace HdGame
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public GameObject Clone()
+        {
+            var clone = new GameObject(Width, Height)
+            {
+                Order = Order
+            };
+            clone.Init();
+            clone.Hitboxes = Hitboxes.ToList();
+            foreach (var state in States)
+            {
+                clone.States.Add(state.Clone());
+            }
+            return clone;
+        }
     }
 
     public class GameObjectComparer : IComparer<GameObject>
