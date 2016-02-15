@@ -2,7 +2,7 @@
 using OpenTK;
 
 
-namespace AttritoGravita
+namespace E.T.Reloaded
 {
 	public class Obj2D
 	{

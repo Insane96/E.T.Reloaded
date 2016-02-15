@@ -1,0 +1,3 @@
+/Users/remoorlandini/Desktop/Lavori AIV/FEBBRAIO/E.T.Reloaded/E.T.Reloaded/obj/Debug/.NETFramework,Version=v4.6.AssemblyAttribute.cs
+/Users/remoorlandini/Desktop/Lavori AIV/FEBBRAIO/E.T.Reloaded/E.T.Reloaded/bin/Debug/OpenTK.dll
+/Users/remoorlandini/Desktop/Lavori AIV/FEBBRAIO/E.T.Reloaded/E.T.Reloaded/bin/Debug/aiv-fast2d.dll

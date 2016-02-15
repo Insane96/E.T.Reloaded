@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AttritoGravita
+namespace E.T.Reloaded
 {
     public static class GameManager
     {
 		public static Window window;
-		static Player p1;
+		static RigidBody p1;
 
         static GameManager()
         {
             window = new Window(1280, 720, "Animations");
-			p1 = new Player();
+			p1 = new RigidBody();
         }
 
         public static void Play()
@@ -23,7 +23,6 @@ namespace AttritoGravita
             while (window.opened)
             {
 				p1.Update ();
-				p1.Draw ();
 				window.Update();
             }
         }

@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="E.T.Reloaded/E.T.Reloaded.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="E.T.Reloaded/RigidBody.cs">
+    <Files>
+      <File FileName="E.T.Reloaded/Program.cs" Line="13" Column="1" />
+      <File FileName="E.T.Reloaded/Obj2D.cs" Line="5" Column="23" />
+      <File FileName="E.T.Reloaded/GameManager.cs" Line="27" Column="14" />
+      <File FileName="E.T.Reloaded/Player.cs" Line="11" Column="15" />
+      <File FileName="E.T.Reloaded/RigidBody.cs" Line="48" Column="27" />
+      <File FileName="../Jump/Jump/Player.cs" Line="92" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

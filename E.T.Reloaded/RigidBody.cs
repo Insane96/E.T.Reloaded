@@ -6,69 +6,106 @@ using System.Threading.Tasks;
 using Aiv.Fast2D;
 using OpenTK;
 
-namespace AttritoGravita
+namespace E.T.Reloaded
 {
     public class RigidBody:IUpdatable
     {
-        protected Vector2 velocity;
-        public Vector2 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
-		protected Obj2D parent;
-        protected float friction;
-        protected float minSpeed;
-        protected float maxSpeed;
+		Player player;
+		// when higher than 0, the player is in jump mode
+		private float jumping;
 
-		public RigidBody(Obj2D parentObj)
-        {
-            parent = parentObj;
-            friction = 880f;
-            minSpeed = 0.5f;
-            maxSpeed = 200.0f;
-        }
+		// check if the jump key is pressed or not
+		private bool jumpReleased = true;
 
-        public void AddVelocity(Vector2 velAmount)//modificare la velocita
-        {
-			Velocity.Add(velAmount);//velamount vector
-        }
+		// how much time we can stay in jump mode
+		private float jumpTime = 0.3f;
 
-		protected float ComputeSpeed(ref float speedVal)//velocita corrente
-        {
-            
-            if (speedVal > 0.0f)
-            {
-                speedVal -= friction * GameManager.window.deltaTime;//attrito (velocita contraria)
-                if (speedVal < minSpeed)
-                    speedVal = 0.0f;
-                else if (speedVal > maxSpeed)
-                    speedVal = maxSpeed;
-            }
-            else if (speedVal < 0.0f)
-            {
-				speedVal += friction * GameManager.window.deltaTime;
-                if (speedVal > -minSpeed)
-                    speedVal = 0.0f;
-                else if (speedVal < -maxSpeed)
-                    speedVal = -maxSpeed;
-            }
-            
-            return speedVal;
+		private float gravityForce = 2000f;
+		private float gravity;
 
-        }
+		// how much force we generate at the start of the jump
+		private float jumpForce = 5000f;
 
-		public void Update()
-        {
-			ComputeSpeed(ref velocity.X);
-			parent.x += (int)(velocity.X * GameManager.window.deltaTime);
-            Console.WriteLine("X:"+velocity.X);
+		// horizontal speed
+		private float speed = 300;
 
-			velocity.Y += 150.0f * GameManager.window.deltaTime;
-			ComputeSpeed(ref velocity.Y);
-             
-			Console.WriteLine("Y:"+velocity.Y);
-			parent.y += (int)(velocity.Y * GameManager.window.deltaTime);
-        }
+		// fake collision
+		private float collisionLine = 440;
+
+		/*
+		public Vector2 position {
+			get {
+				return this.sprite.position;
+			}
+			set {
+				this.sprite.position = value;
+			}
+		}
+		*/
+
+		public RigidBody ()
+		{
+			player = new Player ();
+			player.sprite.scale = new Vector2 (0.2f, 0.2f);
+		}
+
+		private bool IsGrounded ()
+		{
+			// check if the collision line is below the player
+			if (player.sprite.position.Y + 1 >= collisionLine)
+				return true;
+			return false;
+		}
+
+		public void Update ()
+		{
+
+			// horizontal movements
+			if (GameManager.window.GetKey (KeyCode.Right))
+				player.sprite.position.X += speed * GameManager.window.deltaTime;
+
+			if (GameManager.window.GetKey (KeyCode.Left))
+				player.sprite.position.X -= speed * GameManager.window.deltaTime;
+
+
+
+			// check for space press
+			bool space = GameManager.window.GetKey (KeyCode.Space);
+			if (space) {
+				if (jumpReleased && jumping <= 0 && IsGrounded()) {
+					jumping = jumpTime;
+					jumpReleased = false;
+				}
+				jumpReleased = false;
+			} else {
+				jumpReleased = true;
+			}
+
+			// jump deceleration (starts strong, ends weaker)
+			if (jumping > 0) {
+				if (!space) {
+					jumping = 0;
+				} else {
+					// the multiplication by "jumping" allows deceleration simulation, as jumping decreases autoatically at each timestep
+					player.sprite.position.Y -= this.jumpForce * jumping * GameManager.window.deltaTime;
+					jumping -= GameManager.window.deltaTime;
+				}
+			}
+
+			// gravity acceleration simulation (the more time passes the stronger gravity will be)
+			player.sprite.position.Y += this.gravity * GameManager.window.deltaTime;
+			this.gravity += this.gravityForce * GameManager.window.deltaTime;
+
+
+			// check collisions (fake, just check for Y)
+			if (player.sprite.position.Y > collisionLine) {
+				player.sprite.position.Y = collisionLine;
+				this.gravity = 0;
+			}
+
+
+			// draw
+			player.sprite.DrawTexture (player.texture);
+		}
     }
 }
