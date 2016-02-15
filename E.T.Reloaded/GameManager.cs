@@ -14,7 +14,7 @@ namespace E.T.Reloaded
 
         static GameManager()
         {
-            window = new Window(1280, 720, "Animations");
+            window = new Window(720, 720, "Animations");
 			p1 = new RigidBody();
         }
 

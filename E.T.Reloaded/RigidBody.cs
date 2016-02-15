@@ -24,13 +24,13 @@ namespace E.T.Reloaded
 		private float gravity;
 
 		// how much force we generate at the start of the jump
-		private float jumpForce = 5000f;
+		private float jumpForce = 3500f;
 
 		// horizontal speed
 		private float speed = 300;
 
 		// fake collision
-		private float collisionLine = 440;
+		private float collisionLine = 640;
 
 		/*
 		public Vector2 position {
@@ -46,7 +46,7 @@ namespace E.T.Reloaded
 		public RigidBody ()
 		{
 			player = new Player ();
-			player.sprite.scale = new Vector2 (0.2f, 0.2f);
+			//player.sprite.scale = new Vector2 (0.2f, 0.2f);
 		}
 
 		private bool IsGrounded ()
@@ -105,7 +105,7 @@ namespace E.T.Reloaded
 
 
 			// draw
-			player.sprite.DrawTexture (player.texture);
+			player.sprite.DrawTexture (player.texture, 0, 0, player.texture.Width, player.texture.Height);
 		}
     }
 }
