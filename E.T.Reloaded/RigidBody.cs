@@ -29,7 +29,9 @@ namespace E.T.Reloaded
 		public float speed{get; set;}
 
 		// fake collision
-		public float collisionLine{get; set;}
+		public float collisionLineDown{get; set;}
+
+		public float collisionLineTop{get; set;}
 
 		public RigidBody ()
 		{
@@ -38,7 +40,8 @@ namespace E.T.Reloaded
 			gravityForce = 2000f;
 			jumpForce = 3500f;
 			speed = 300;
-			collisionLine = 640;
+			collisionLineDown = 640;
+			collisionLineTop = 0;
 		}
     }
 }
