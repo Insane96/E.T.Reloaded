@@ -17,12 +17,14 @@ namespace HdGame
             var aratio = playerIdle[0].Height / playerIdle[0].Width;
             // large 1meter
             Player = new Player(1f, 1f * aratio);
-            Player.Hitboxes.Add(new Bounds(Player));
-            Player.States.Add(new StateManager(5) { Textures = playerIdle }); // idle
-            Player.States.Add(new StateManager(5) { Textures = playerMovingRight }); // left
-            Player.States.Add(new StateManager(5) { Textures = playerMovingRight }); // right
-            Player.States.Add(new StateManager(5) { Textures = playerMovingRight }); // down
-            Player.States.Add(new StateManager(5) { Textures = playerMovingRight }); // up
+            Player.AddComponent(new FollowCamera());
+            ((RigidBody) Player.GetComponent<RigidBody>()).Hitboxes.Add(Bounds.FromGameObject(Player));
+            var mr = (StateRenderer) Player.GetComponent<StateRenderer>();
+            mr.States.Add(new StateManager(5) { Textures = playerIdle }); // idle
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // left
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // right
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // down
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // up
             GameManager.Instance.AddObject("player", Player);
             // test hitbox
             var player2 = new Player(1f, 1f*aratio)
@@ -34,14 +36,15 @@ namespace HdGame
                     {KeyCode.Left, new Vector2(-1, 0)},
                     {KeyCode.Right, new Vector2(1, 0)}
                 },
-                position = new Vector2(5f, 0f)
             };
-            player2.Hitboxes.Add(new Bounds(player2));
-            player2.States.Add(new StateManager(5) { Textures = playerIdle }); // idle
-            player2.States.Add(new StateManager(5) { Textures = playerMovingRight }); // left
-            player2.States.Add(new StateManager(5) { Textures = playerMovingRight }); // right
-            player2.States.Add(new StateManager(5) { Textures = playerMovingRight }); // down
-            player2.States.Add(new StateManager(5) { Textures = playerMovingRight }); // up
+            player2.Transform.Position = new Vector2(5f, 0f);
+            ((RigidBody) player2.GetComponent<RigidBody>()).Hitboxes.Add(Bounds.FromGameObject(player2));
+            mr = (StateRenderer) player2.GetComponent<StateRenderer>();
+            mr.States.Add(new StateManager(5) { Textures = playerIdle }); // idle
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // left
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // right
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // down
+            mr.States.Add(new StateManager(5) { Textures = playerMovingRight }); // up
             GameManager.Instance.AddObject("player2", player2);
         }
 

@@ -3,22 +3,16 @@ using System.Collections.Generic;
 
 namespace HdGame
 {
-    public class TimerManager
+    public class TimerManager : Component
     {
         private readonly Dictionary<string, Tuple<Action<GameObject, object[]>, object[]>> callBacks;
 
-        private readonly GameObject owner;
         private readonly Dictionary<string, float> timers;
 
-        private TimerManager()
+        public TimerManager()
         {
             timers = new Dictionary<string, float>();
             callBacks = new Dictionary<string, Tuple<Action<GameObject, object[]>, object[]>>();
-        }
-
-        public TimerManager(GameObject owner) : this()
-        {
-            this.owner = owner;
         }
 
         public float Get(string key)
@@ -45,7 +39,7 @@ namespace HdGame
             return timers.ContainsKey(key);
         }
 
-        public void Update()
+        public override void Update()
         {
             var keys = new string[timers.Count];
             timers.Keys.CopyTo(keys, 0);
@@ -55,7 +49,7 @@ namespace HdGame
                 {
                     timers[key] -= GameManager.Instance.DeltaTime;
                     if (timers[key] <= 0 && callBacks.ContainsKey(key))
-                        callBacks[key].Item1(owner, callBacks[key].Item2);
+                        callBacks[key].Item1(GameObject, callBacks[key].Item2);
                 }
             }
         }

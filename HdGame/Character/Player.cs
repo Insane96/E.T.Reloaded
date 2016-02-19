@@ -7,8 +7,6 @@ namespace HdGame
     public class Player : Character
     {
         public float Score { get; private set; }
-        private static bool firstPlayer;
-        private bool followCamera;
 
         public Dictionary<KeyCode, Vector2> Controls = new Dictionary<KeyCode, Vector2>()
         {
@@ -18,17 +16,12 @@ namespace HdGame
             { KeyCode.D, new Vector2(1, 0) }
         };
 
-        private readonly float cameraFollowSpeed = 1.5f;
-
         public Player(float width, float height) : base(width, height)
         {
             Score = 0;
-            Speed = 2.33f;
-            if (!firstPlayer)
-            {
-                firstPlayer = true;
-                followCamera = true;
-            }
+            ((CharacterMovement) GetComponent<CharacterMovement>()).Speed = 2.33f;
+            //((RigidBody) GetComponent<RigidBody>()).UseGravity = true;
+
         }
 
         public override void Update()
@@ -36,25 +29,17 @@ namespace HdGame
             // need to be called BEFORE Character.Update
             ManageControls();
             base.Update();
-            if (followCamera)
-                UpdateCamera();
-        }
-
-        private void UpdateCamera()
-        {
-            GameManager.Instance.Camera.position = Vector2.Lerp(
-                GameManager.Instance.Camera.position, position,
-                GameManager.Instance.DeltaTime * cameraFollowSpeed);
         }
 
         private void ManageControls()
         {
             // arcade style reset, try to remove to have "force"-like behaviour (decrease speed b4!)
-            MovingVector = Vector2.Zero;
+            var cm = ((CharacterMovement) GetComponent<CharacterMovement>());
+            cm.MovingVector = Vector2.Zero;
             foreach (var pair in Controls)
             {
                 if (GameManager.Instance.Window.GetKey(pair.Key))
-                    MovingVector += pair.Value;
+                    cm.MovingVector += pair.Value;
             }
         }
     }

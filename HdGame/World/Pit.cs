@@ -10,32 +10,31 @@ namespace HdGame
     {
         private static int pitCount;
         private readonly float pitZoneHeight = 16.66f;
-        private Vector2 pitZoneSize;
+        public Vector2 PitZoneSize { get; set; }
         private Vector2 pitZonePosition;
         private PitZone pitZone;
 
-        public Pit(float width, float height) : base(width, height)
+        public Pit(float width, float height)
         {
+            AddComponent(new MeshRenderer(width, height));
+            AddComponent(new RigidBody());
+
+            pitCount++;
         }
 
         public override void Start()
         {
             base.Start();
-            Hitboxes.Add(new Bounds(this));
-            InitPitZone();
-        }
+            ((RigidBody) GetComponent<RigidBody>()).Hitboxes.Add(Bounds.FromGameObject(this));
 
-        private void InitPitZone()
-        {
-            pitCount++;
-            pitZoneSize = new Vector2(
+            PitZoneSize = new Vector2(
                 GameManager.Instance.Window.aspectRatio * pitZoneHeight, pitZoneHeight);
-            pitZonePosition = World.Boundings.Max + new Vector2(pitZoneSize.X*3, 0f) * pitCount;
+            pitZonePosition = World.Boundings.Max + new Vector2(PitZoneSize.X*3, 0f) * pitCount;
         }
 
         private void CreatePitZone()
         {
-            pitZone = new PitZone(this, pitZonePosition, pitZoneSize);
+            pitZone = new PitZone(this, pitZonePosition, PitZoneSize);
             GameManager.Instance.AddObject($"{Name}_pitZone", pitZone);
         }
 
@@ -50,16 +49,32 @@ namespace HdGame
 
         private void PitFall(Player player)
         {
-            if (Timer.Get("pitFallDelay") > 0) return;
+            if (((TimerManager) GetComponent<TimerManager>()).Get("pitFallDelay") > 0) return;
             if (pitZone == null)
             {
                 CreatePitZone();
             }
-            pitZone.LastPlayerPosition = player.LastPosition;
-            player.position = pitZonePosition + 
-                new Vector2(pitZoneSize.X/2, pitZoneSize.Y - player.Height);
-            player.LastPosition = player.position;
-            GameManager.Instance.Camera.position = player.position;
+            pitZone.LastPlayerPosition = player.Transform.LastPosition;
+            player.Transform.Position = pitZonePosition + 
+                new Vector2(
+                    PitZoneSize.X/2, 
+                    PitZoneSize.Y - ((MeshRenderer) player.GetComponent<MeshRenderer>()).Height);
+            player.Transform.LastPosition = player.Transform.Position;
+            GameManager.Instance.Camera.position = player.Transform.Position;
+        }
+
+        public override GameObject Clone()
+        {
+            //var cl = (Pit) base.Clone();
+            //return cl;
+            var mr = (MeshRenderer)GetComponent<MeshRenderer>();
+            var clone = new Pit(mr.Width, mr.Height);
+            foreach (var component in Components)
+            {
+                if (!(component is Transform) && !(component is TimerManager))
+                    clone.AddComponent(component.Clone());
+            }
+            return clone;
         }
     }
 
@@ -82,31 +97,33 @@ namespace HdGame
         private readonly int maxProceduralAttempts = 100;
         public Vector2 LastPlayerPosition { get; set; }
 
-        public PitZone(Pit pit, Vector2 pitZonePosition, Vector2 pitZoneSize) : 
-            base(pitZoneSize.X, pitZoneSize.Y)
+        public PitZone(Pit pit, Vector2 pitZonePosition, Vector2 pitZoneSize) 
         {
+            AddComponent(new MeshRenderer(pitZoneSize.X, pitZoneSize.Y));
+
             this.pit = pit;
 
-            position = pitZonePosition;
+            Transform.Position = pitZonePosition;
             var backgroundTexture = new TexturePart("box.png");
-            States.Add(new StateManager() { Textures = new List<TexturePart> {backgroundTexture} });
+            ((MeshRenderer) GetComponent<MeshRenderer>()).CurrentTexture = backgroundTexture;
 
+            var rigidBody = (RigidBody) AddComponent(new RigidBody());
             // hitboxes
             var hitBoxDepth = new Vector2(6f, 2f);
-            Hitboxes.Add(
+            rigidBody.Hitboxes.Add(
                 new Bounds(
                     new Vector2(pitZoneSize.X / 2, pitZoneSize.Y + hitBoxDepth.Y / 2),
                     new Vector2(pitZoneSize.X / 2, hitBoxDepth.Y / 2))); // bottom
-            Hitboxes.Add(
+            rigidBody.Hitboxes.Add(
                 new Bounds(
                     "exit", 
                     new Vector2(pitZoneSize.X / 2, hitBoxDepth.Y / 2),
                     new Vector2(pitZoneSize.X / 2, hitBoxDepth.Y / 2))); // top
-            Hitboxes.Add(
+            rigidBody.Hitboxes.Add(
                 new Bounds(
                     new Vector2(hitBoxDepth.X / 2, pitZoneSize.Y / 2),
                     new Vector2(hitBoxDepth.X / 2, pitZoneSize.Y / 2))); // left
-            Hitboxes.Add(
+            rigidBody.Hitboxes.Add(
                 new Bounds(
                     new Vector2(pitZoneSize.X - hitBoxDepth.X / 2, pitZoneSize.Y / 2),
                     new Vector2(hitBoxDepth.X / 2, pitZoneSize.Y / 2))); // right
@@ -127,6 +144,7 @@ namespace HdGame
                 details[i] = new List<GameObject>();
             var attempts = 0;
             var detailsCount = 0;
+            var hitBoxes = new Dictionary<GameObject, Bounds>();
             while (attempts < maxProceduralAttempts && detailsCount < detailsNumber)
             {
                 attempts++;
@@ -139,24 +157,24 @@ namespace HdGame
 
                 // pick random position
                 int detailIndex = Utils.Random.Next(details.Length);
+                var detail = new GameObject();
+                var detailRenderer = (StateRenderer) detail.AddComponent(new StateRenderer(width, height));
+                hitBoxes[detail] = Bounds.FromGameObject(detail);
+
                 var detailPosition = Utils.PickRandomPoint(detailsBoundaries[detailIndex]);
-                detailPosition = detailPosition*Size + position;
-                var detail = new GameObject(width, height) { position = detailPosition };
-                detail.Hitboxes.Add(new Bounds(detail));
+                detailPosition = detailPosition * pit.PitZoneSize + Transform.Position; // * detailRenderer.Size
+                detail.Transform.Position = detailPosition;
 
                 // too much linq?
                 // check if new detail collides with any other detail, if so repeat
-                if (details[detailIndex].Any(gobj => Physics.CheckObjectsCollision(gobj, detail))) continue;
+                if (details[detailIndex].Any(gobj => Physics.CheckBoundsCollision(hitBoxes[gobj], hitBoxes[detail]))) continue;
 
                 // spawn detail..
-                detail.States.Add(new StateManager(textureInfo.Item4) { Textures = textures });
+                detailRenderer.States.Add(new StateManager(textureInfo.Item4) { Textures = textures });
                 GameManager.Instance.AddObject($"{Name}_detail{detailsCount}", detail);
                 details[detailIndex].Add(detail);
                 detailsCount++;
             }
-            foreach (var detailList in details)
-                foreach (var detail in detailList)
-                    detail.Hitboxes.Clear();
             Debug.WriteLine($"spawned n.{detailsCount} details in PitZone {Name}");
         }
 
@@ -166,10 +184,10 @@ namespace HdGame
             var player = collision.GameObject as Player;
             if (collision.OwnerBounds.Name == "exit" && player != null)
             {
-                player.position = LastPlayerPosition;
-                player.LastPosition = player.position;
-                GameManager.Instance.Camera.position = player.position;
-                pit.Timer.Set("pitFallDelay", 2f);
+                player.Transform.Position = LastPlayerPosition;
+                player.Transform.LastPosition = player.Transform.Position;
+                GameManager.Instance.Camera.position = player.Transform.Position;
+                ((TimerManager)pit.GetComponent<TimerManager>()).Set("pitFallDelay", 2f);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using OpenTK;
 
 namespace HdGame
 {
@@ -13,22 +14,24 @@ namespace HdGame
             {
                 var obj1 = (GameObject) objects.Dequeue();
                 obj1.Collisions.Clear();
-                if (obj1.Hitboxes.Count == 0)
+                var rigid1 = (RigidBody) obj1.GetComponent<RigidBody>();
+                if (rigid1 == null || rigid1.Hitboxes.Count == 0)
                     continue;
                 foreach (GameObject obj2 in objects)
                 {
-                    // untested mask
-                    if ((obj1.CollisionMask != null && !obj1.CollisionMask(obj2)) ||
-                        (obj2.CollisionMask != null && !obj2.CollisionMask(obj1)))
+                    var rigid2 = (RigidBody)obj2.GetComponent<RigidBody>();
+                    if (rigid2 == null || rigid2.Hitboxes.Count == 0) continue;
+                    if ((rigid1.CollisionMask != null && !rigid1.CollisionMask(obj2)) ||
+                        (rigid2.CollisionMask != null && !rigid2.CollisionMask(obj1)))
                         continue;
 
-                    foreach (var bound1 in obj1.Hitboxes)
+                    foreach (var bound1 in rigid1.Hitboxes)
                     {
-                        foreach (var bound2 in obj2.Hitboxes)
+                        foreach (var bound2 in rigid2.Hitboxes)
                         {
                             if (CheckBoundsCollision(
-                                bound1 + obj1.position,
-                                bound2 + obj2.position))
+                                bound1 + obj1.Transform.Position,
+                                bound2 + obj2.Transform.Position))
                             {
                                 var collision1 = new Collision(obj2, bound1, bound2);
                                 var collision2 = new Collision(obj1, bound2, bound1);
@@ -65,11 +68,15 @@ namespace HdGame
 
         public static bool CheckObjectsCollision(GameObject gobj1, GameObject gobj2)
         {
-            foreach (var bound1 in gobj1.Hitboxes)
-                foreach (var bound2 in gobj2.Hitboxes)
-                    if (CheckBoundsCollision(bound1 + gobj1.position, bound2 + gobj2.position))
+            var rigid1 = (RigidBody) gobj1.GetComponent<RigidBody>();
+            var rigid2 = (RigidBody) gobj2.GetComponent<RigidBody>();
+            foreach (var bound1 in rigid1.Hitboxes)
+                foreach (var bound2 in rigid2.Hitboxes)
+                    if (CheckBoundsCollision(bound1 + gobj1.Transform.Position, bound2 + gobj2.Transform.Position))
                         return true;
             return false;
         }
+
+        public static Vector2 Gravity { get; set; } = new Vector2(0f, 0.2f);
     }
 }

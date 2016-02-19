@@ -38,14 +38,12 @@ namespace HdGame
             };
             Objects[name] = gameObject;
             SortedObjects.Add(gameObject);
-
-            gameObject.Start();
         }
         // "RemoveObject" is automatically called on object destroy.
 
         // dictionary added so we can get objects by key, could be removed if not needed
         public Dictionary<string, GameObject> Objects { get; }
-        private SortedSet<GameObject> SortedObjects { get; set; }
+        private SortedSet<GameObject> SortedObjects { get; }
 
         public Camera Camera { get; }
 
@@ -61,14 +59,19 @@ namespace HdGame
                 Window.Update();
                 DeltaTime = Window.deltaTime;
                 Time += DeltaTime;
-                Physics.UpdateCollisions();
                 // clone dictionary before looping, so it can be modified inplace
                 foreach (var pair in SortedObjects.ToDictionary(key => key, value => value))
                 {
                     var gameObject = pair.Value;
+                    if (!gameObject.Started)
+                    {
+                        gameObject.Started = true;
+                        gameObject.Start();
+                    }
                     if (gameObject.Disposed) continue;
                     gameObject.Update();
                 }
+                Physics.UpdateCollisions();
             }
         }
     }

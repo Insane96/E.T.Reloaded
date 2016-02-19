@@ -6,43 +6,37 @@ using OpenTK;
 
 namespace HdGame
 {
-    public class GameObject : Sprite
+    public class GameObject
     {
         public delegate void OrderChangeEventHandler(object sender);
         public event OrderChangeEventHandler OnOrderChange;
         public delegate void DestroyEventHandler(object sender);
         public event DestroyEventHandler OnDestroy;
 
-        // if not null this function is used to check if two gameobjects can collide
-        public Func<GameObject, bool> CollisionMask; 
-        public List<Bounds> Hitboxes { get; private set; }
         public List<Collision> Collisions { get; private set; }
 
-        private TimerManager timer; // do not use directly
-        public TimerManager Timer => timer ?? (timer = new TimerManager(this));
+        public Transform Transform { get; }
 
-        public Vector2 Size => new Vector2(Width, Height);
+        protected List<Component> Components { get; }
 
         public bool Disposed { get; private set; }
         private int order;
 
-        public GameObject(float width, float height) : base(width, height)
+        public GameObject()
         {
-            Init();
-        }
-
-        // should create another class that doesn't inherit sprite...
-        // (ignore if using only 1-2 gameobjects that doesn't draw anything in whole game?)
-        public GameObject() : base(1, 1)
-        {
-            Init();
-        }
-
-        protected void Init()
-        {
-            States = new List<StateManager>();
-            Hitboxes = new List<Bounds>();
             Collisions = new List<Collision>();
+            Components = new List<Component>();
+
+            Transform = (Transform) AddComponent(new Transform());
+            AddComponent(new TimerManager());
+        }
+
+        public Component GetComponent<T>()
+        {
+            foreach (var component in Components)
+                if (component is T)
+                    return component;
+            return null;
         }
 
         public void Destroy()
@@ -50,66 +44,40 @@ namespace HdGame
             if (!Disposed) { 
                 Disposed = true;
                 OnDestroy?.Invoke(this);
-                Dispose();
             }
         }
 
         public virtual void OnCollision(Collision collision)
         {
+            foreach (var component in Components)
+            {
+                var behaviour = component as Behaviour;
+                if (behaviour != null && !behaviour.Enabled) continue;
+                component.OnCollision(collision);
+            }
         }
 
         public virtual void Start()
         {
         }
 
-        public new virtual void Update()
+        public virtual void Update()
         {
-            base.Update();
-            timer?.Update();
-            CalculateTexture();
-            CurrentTexture?.Draw(this);
-        }
-
-        private void CalculateTexture()
-        {
-            if (States.Count <= CurrentState)
+            foreach (var component in Components)
             {
-                CurrentTexture = null;
-                return;
-            }
-            var state = States[CurrentState];
-            // lets skip all the calculations if there is a single texturepart in the statemanager
-            if (state.Textures.Count == 1)
-            {
-                CurrentTexture = state.CurrentTexture;
-                return;
-            }
-
-            if (state.Playing && GameManager.Instance.Time - state.LastTime >= state.Frequency)
-            {
-                state.LastTime = GameManager.Instance.Time;
-                state.CurrentFrame++;
-                if (state.CurrentFrame > state.Textures.Count - 1)
+                // lazy vs method?
+                if (!component.Started)
                 {
-                    if (state.Loop)
-                    {
-                        state.CurrentFrame = 0;
-                    }
-                    else // lock to last
-                    {
-                        state.CurrentFrame = state.Textures.Count - 1;
-                    }
+                    component.Started = true;
+                    component.GameObject = this;
+                    component.Start();
                 }
+                var behaviour = component as Behaviour;
+                if (behaviour != null && !behaviour.Enabled) continue;
+                component.Update();
             }
-            CurrentTexture = state.CurrentTexture;
         }
 
-        // default to 0, so putting Idle state on States[0] is a nice idea  
-        public int CurrentState { get; set; }
-
-        public List<StateManager> States { get; private set; }
-
-        public TexturePart CurrentTexture { get; private set; }
 
         public int Order
         {
@@ -124,20 +92,27 @@ namespace HdGame
         // setted by gamemanager, used to compare two objects with same order
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Started { get; set; }
 
-        public GameObject Clone()
+        public virtual GameObject Clone()
         {
-            var clone = new GameObject(Width, Height)
+            var clone = new GameObject
             {
-                Order = Order
+                Order = Order,
             };
-            clone.Init();
-            clone.Hitboxes = Hitboxes.ToList();
-            foreach (var state in States)
+            foreach (var component in Components)
             {
-                clone.States.Add(state.Clone());
+                if (!(component is Transform) && !(component is TimerManager))
+                    clone.AddComponent(component.Clone());
             }
             return clone;
+        }
+
+        public Component AddComponent(Component component)
+        {
+            Components.Add(component);
+            component.GameObject = this;
+            return component;
         }
     }
 
