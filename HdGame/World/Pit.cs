@@ -12,6 +12,7 @@ namespace HdGame
         private readonly float pitZoneHeight = 16.66f;
         public Vector2 PitZoneSize { get; set; }
         public bool HasFlower { get; set; }
+        public bool HasPhone { get; set; }
 
         private Vector2 pitZonePosition;
         private PitZone pitZone;
@@ -20,8 +21,6 @@ namespace HdGame
         {
             AddComponent(new MeshRenderer(width, height));
             AddComponent(new RigidBody());
-
-            pitCount++;
         }
 
         public override void Start()
@@ -31,7 +30,7 @@ namespace HdGame
 
             PitZoneSize = new Vector2(
                 GameManager.Instance.Window.aspectRatio * pitZoneHeight, pitZoneHeight);
-            pitZonePosition = World.Boundings.Max + new Vector2(PitZoneSize.X*3, 0f) * pitCount;
+            pitZonePosition = World.Boundings.Max + PitZoneSize * 2 * pitCount++;
         }
 
         private void CreatePitZone()
@@ -56,8 +55,10 @@ namespace HdGame
             {
                 CreatePitZone();
             }
-            pitZone.LastPlayerPosition = player.Transform.LastPosition;
-            player.Transform.Position = pitZonePosition + 
+            LastPlayerPosition = player.Transform.LastPosition;
+            Debug.WriteLine("Fall " + Name + " " + LastPlayerPosition + " " + pitZonePosition);
+            ((RigidBody) pitZone.GetComponent<RigidBody>()).Enabled = true;
+            player.Transform.Position = pitZonePosition +
                 new Vector2(
                     PitZoneSize.X/2, 
                     PitZoneSize.Y - ((MeshRenderer) player.GetComponent<MeshRenderer>()).Height);
@@ -78,6 +79,7 @@ namespace HdGame
             }
             return clone;
         }
+        public Vector2 LastPlayerPosition { get; set; }
     }
 
     public class PitZone : GameObject
@@ -97,7 +99,6 @@ namespace HdGame
         private readonly int detailsNumber = 10;
         private readonly Pit pit;
         private readonly int maxProceduralAttempts = 100;
-        public Vector2 LastPlayerPosition { get; set; }
 
         public static float CandySpawnRate = 1f;
 
@@ -150,11 +151,17 @@ namespace HdGame
 
             }
             // randomly spawn candy
-            else if (Utils.Random.NextDouble() < CandySpawnRate)
+            if (Utils.Random.NextDouble() < CandySpawnRate)
             {
                 var candy = new Candy();
-                candy.Transform.Position = Transform.Position + new Vector2(Size.X*0.25f, Size.Y - 1.33f);
+                candy.Transform.Position = Transform.Position + new Vector2(Size.X * 0.25f, Size.Y - 1.33f);
                 GameManager.Instance.AddObject($"{Name}_candy", candy);
+            }
+            if (pit.HasPhone)
+            {
+                var phone = new Phone();
+                phone.Transform.Position = Transform.Position + new Vector2(Size.X * 0.35f, Size.Y - 1.33f);
+                GameManager.Instance.AddObject($"{Name}_phone", phone);
             }
         }
 
@@ -205,10 +212,12 @@ namespace HdGame
             var player = collision.GameObject as Player;
             if (collision.OwnerBounds.Name == "exit" && player != null)
             {
-                player.Transform.Position = LastPlayerPosition;
+                Debug.WriteLine("Back " + pit.Name + " " + pit.LastPlayerPosition);
+                player.Transform.Position = pit.LastPlayerPosition;
                 player.Transform.LastPosition = player.Transform.Position;
                 GameManager.Instance.Camera.position = player.Transform.Position;
                 ((TimerManager)pit.GetComponent<TimerManager>()).Set("pitFallDelay", 2f);
+                ((RigidBody) GetComponent<RigidBody>()).Enabled = false;
             }
         }
     }

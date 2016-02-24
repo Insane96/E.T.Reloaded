@@ -19,7 +19,6 @@ namespace HdGame
         {
             base.OnCollision(collision);
             Game.Player.PickCandy(this);
-            Destroy();
         }
     }
 }

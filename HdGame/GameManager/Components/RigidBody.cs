@@ -15,6 +15,7 @@ namespace HdGame
 
         public bool UseGravity { get; set; }
         public bool TriggersOnly { get; set; }
+        public bool Enabled { get; set; } = true;
 
         // TODO: forces
 

@@ -35,6 +35,16 @@ namespace HdGame
                 new Vector2(13, 2f), new Vector2(27f, -5f), new Vector2(-13, 7)
             };
             var flowerPit = Utils.Random.Next(0, pitPositions.Count);
+            var phonePits = new List<int>
+            {
+                Utils.Random.Next(0, pitPositions.Count)
+            };
+            while (phonePits.Count < 3)
+            {
+                var position = Utils.Random.Next(0, pitPositions.Count);
+                if (!phonePits.Contains(position))
+                    phonePits.Add(position);
+            }
 
             for (var index = 0; index < pitPositions.Count; index++)
             {
@@ -43,6 +53,8 @@ namespace HdGame
                 var gobj = new Pit(pitWidth, pitWidth * (texture.Height / texture.Width));
                 if (flowerPit == index)
                     gobj.HasFlower = true;
+                if (phonePits.Contains(index))
+                    gobj.HasPhone = true;
                 // 3 meters width? et is 1meter
                 ((MeshRenderer)gobj.GetComponent<MeshRenderer>()).CurrentTexture = texture;
                 gobj.Transform.Position = position;

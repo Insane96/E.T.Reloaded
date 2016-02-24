@@ -9,18 +9,20 @@ namespace HdGame
     {
         public static void UpdateCollisions()
         {
-            var objects = new Queue(GameManager.Instance.Objects.Values);
+            var objects = new Queue<GameObject>(GameManager.Instance.Objects.Values);
+            foreach (var obj in objects)
+                obj.Collisions.Clear();
             while (objects.Count > 0)
             {
-                var obj1 = (GameObject) objects.Dequeue();
-                obj1.Collisions.Clear();
+                var obj1 = objects.Dequeue();
                 var rigid1 = (RigidBody) obj1.GetComponent<RigidBody>();
-                if (rigid1 == null || rigid1.Hitboxes.Count == 0)
+                if (rigid1 == null || rigid1.Hitboxes.Count == 0 || !rigid1.Enabled)
                     continue;
                 foreach (GameObject obj2 in objects)
                 {
                     var rigid2 = (RigidBody)obj2.GetComponent<RigidBody>();
-                    if (rigid2 == null || rigid2.Hitboxes.Count == 0) continue;
+                    if (rigid2 == null || rigid2.Hitboxes.Count == 0 || !rigid1.Enabled)
+                        continue;
                     if ((rigid1.CollisionMask != null && !rigid1.CollisionMask(obj2)) ||
                         (rigid2.CollisionMask != null && !rigid2.CollisionMask(obj1)))
                         continue;

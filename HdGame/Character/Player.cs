@@ -48,8 +48,19 @@ namespace HdGame
         public void PickCandy(Candy candy)
         {
             Candies++;
+            candy.Destroy();
         }
 
         public int Candies { get; private set; }
+
+        public void PickPhone(Phone phone)
+        {
+            if (Phones < 3) { 
+                Phones++;
+                phone.Destroy();
+            }
+        }
+
+        public int Phones { get; set; }
     }
 }

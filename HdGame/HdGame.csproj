@@ -68,6 +68,7 @@
     <Compile Include="GameManager\Components\Transform.cs" />
     <Compile Include="GameManager\Utils.cs" />
     <Compile Include="World\Candy.cs" />
+    <Compile Include="World\Phone.cs" />
     <Compile Include="World\Pit.cs" />
     <Compile Include="World\World.cs" />
     <Compile Include="Program.cs" />
@@ -85,6 +86,8 @@
     <Content Include="assets\et_old_idle.png" />
     <Content Include="assets\et_old_right.png" />
     <Content Include="assets\mushroom_1.png" />
+    <Content Include="assets\phone0.png" />
+    <Content Include="assets\phone1.png" />
     <Content Include="assets\pit0.png" />
     <Content Include="assets\pit1.png" />
     <Content Include="assets\pit2.png" />
