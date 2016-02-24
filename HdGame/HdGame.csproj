@@ -67,6 +67,7 @@
     <Compile Include="GameManager\Components\TimerManager.cs" />
     <Compile Include="GameManager\Components\Transform.cs" />
     <Compile Include="GameManager\Utils.cs" />
+    <Compile Include="World\Candy.cs" />
     <Compile Include="World\Pit.cs" />
     <Compile Include="World\World.cs" />
     <Compile Include="Program.cs" />
@@ -77,8 +78,25 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="assets\weed.png" />
+    <Content Include="assets\box.png" />
+    <Content Include="assets\candies.png" />
+    <Content Include="assets\et_old_idle.png" />
+    <Content Include="assets\et_old_right.png" />
+    <Content Include="assets\mushroom_1.png" />
+    <Content Include="assets\pit0.png" />
+    <Content Include="assets\pit1.png" />
+    <Content Include="assets\pit2.png" />
+    <Content Include="assets\pit3.png" />
+    <Content Include="assets\rocks.png" />
+    <Content Include="assets\roots.png" />
+    <Content Include="assets\tree_1_bottom.png" />
+    <Content Include="assets\tree_1_full.png" />
+    <Content Include="assets\tree_1_top_1.png" />
+    <Content Include="assets\tree_1_top_2.png" />
+    <Content Include="assets\tree_1_top_3.png" />
+    <Content Include="assets\tree_1_top_4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

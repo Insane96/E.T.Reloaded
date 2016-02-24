@@ -11,6 +11,8 @@ namespace HdGame
         private static int pitCount;
         private readonly float pitZoneHeight = 16.66f;
         public Vector2 PitZoneSize { get; set; }
+        public bool HasFlower { get; set; }
+
         private Vector2 pitZonePosition;
         private PitZone pitZone;
 
@@ -97,8 +99,11 @@ namespace HdGame
         private readonly int maxProceduralAttempts = 100;
         public Vector2 LastPlayerPosition { get; set; }
 
-        public PitZone(Pit pit, Vector2 pitZonePosition, Vector2 pitZoneSize) 
+        public static float CandySpawnRate = 1f;
+
+        public PitZone(Pit pit, Vector2 pitZonePosition, Vector2 pitZoneSize)
         {
+            Size = pitZoneSize;
             AddComponent(new MeshRenderer(pitZoneSize.X, pitZoneSize.Y));
 
             this.pit = pit;
@@ -128,13 +133,29 @@ namespace HdGame
                     new Vector2(pitZoneSize.X - hitBoxDepth.X / 2, pitZoneSize.Y / 2),
                     new Vector2(hitBoxDepth.X / 2, pitZoneSize.Y / 2))); // right
 
+
         }
+
+        public Vector2 Size { get; set; }
 
         public override void Start()
         {
             base.Start();
 
             CreateProceduralDetails();
+
+            // spawn flower
+            if (pit.HasFlower)
+            {
+
+            }
+            // randomly spawn candy
+            else if (Utils.Random.NextDouble() < CandySpawnRate)
+            {
+                var candy = new Candy();
+                candy.Transform.Position = Transform.Position + new Vector2(Size.X*0.25f, Size.Y - 1.33f);
+                GameManager.Instance.AddObject($"{Name}_candy", candy);
+            }
         }
 
         private void CreateProceduralDetails()

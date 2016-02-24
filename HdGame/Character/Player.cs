@@ -18,7 +18,7 @@ namespace HdGame
 
         public Player(float width, float height) : base(width, height)
         {
-            Score = 0;
+            Score = 9999;
             ((CharacterMovement) GetComponent<CharacterMovement>()).Speed = 2.33f;
             //((RigidBody) GetComponent<RigidBody>()).UseGravity = true;
 
@@ -41,6 +41,15 @@ namespace HdGame
                 if (GameManager.Instance.Window.GetKey(pair.Key))
                     cm.MovingVector += pair.Value;
             }
+            // todo: tune
+            Score -= cm.MovingVector.Normalized().Length * GameManager.Instance.DeltaTime;
         }
+
+        public void PickCandy(Candy candy)
+        {
+            Candies++;
+        }
+
+        public int Candies { get; private set; }
     }
 }

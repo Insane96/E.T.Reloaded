@@ -59,7 +59,7 @@ namespace HdGame
                 Window.Update();
                 DeltaTime = Window.deltaTime;
                 Time += DeltaTime;
-                // clone dictionary before looping, so it can be modified inplace
+                // clone dictionary before looping, so it can be modified inside the loop
                 foreach (var pair in SortedObjects.ToDictionary(key => key, value => value))
                 {
                     var gameObject = pair.Value;

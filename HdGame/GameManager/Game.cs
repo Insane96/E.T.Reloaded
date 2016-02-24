@@ -48,8 +48,8 @@ namespace HdGame
             GameManager.Instance.AddObject("player2", player2);
         }
 
-        public Player Player { get; set; }
+        public static Player Player { get; private set; }
 
-        public World World { get; }
+        public static World World { get; private set; }
     }
 }

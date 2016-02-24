@@ -20,23 +20,31 @@ namespace HdGame
             SpawnPits();
         }
 
-        private void SpawnPits()
+        private void SpawnPits(float pitWidth = 3f)
         {
-            // static?
-            var pitTexture = new TexturePart("pit.png");
-            var aratio = pitTexture.Height/pitTexture.Width;
+            var pitTextures = new List<TexturePart>
+            {
+                new TexturePart("pit0.png"),
+                new TexturePart("pit1.png"),
+                new TexturePart("pit2.png"),
+                new TexturePart("pit3.png")
+            };
             var pitPositions = new List<Vector2>
             {
-                new Vector2(5f, 5f), new Vector2(-5f, 1f), new Vector2(-5f, -5f)
+                new Vector2(5f, 5f), new Vector2(-5f, 1f), new Vector2(-5f, -5f),
+                new Vector2(13, 2f), new Vector2(27f, -5f), new Vector2(-13, 7)
             };
-            // 3 meters width? et is 1meter
-            var genericPit = new Pit(3f, 3f * aratio);
-            ((MeshRenderer) genericPit.GetComponent<MeshRenderer>()).CurrentTexture = pitTexture;
+            var flowerPit = Utils.Random.Next(0, pitPositions.Count);
 
             for (var index = 0; index < pitPositions.Count; index++)
             {
+                var texture = Utils.ChooseRandom(pitTextures);
                 var position = pitPositions[index];
-                var gobj = genericPit.Clone();
+                var gobj = new Pit(pitWidth, pitWidth * (texture.Height / texture.Width));
+                if (flowerPit == index)
+                    gobj.HasFlower = true;
+                // 3 meters width? et is 1meter
+                ((MeshRenderer)gobj.GetComponent<MeshRenderer>()).CurrentTexture = texture;
                 gobj.Transform.Position = position;
                 GameManager.Instance.AddObject($"pit{index}", gobj);
             }
