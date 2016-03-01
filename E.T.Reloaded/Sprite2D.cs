@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace E.T.Reloaded
 {
-    public class Sprite2D : Obj2D, IDrawable
+	public class Sprite2D:Obj2D, IDrawable
     {
-        public Texture texture { get; set; }
-        public Sprite sprite { get; protected set; }
+		public Texture texture{ get; set;}
+		public Sprite sprite{ get; set;}
 
-        public Sprite2D(string fileName, int x, int y) : base(x, y, 0, 0)
+        public Sprite2D(string fileName, int x, int y):base(x,y,0,0)
         {
-            texture = new Texture(fileName);
-            sprite = new Sprite(texture.Width, texture.Height);
+			texture = new Texture (fileName);
+			sprite = new Sprite (texture.Width, texture.Height);
         }
 
         public void Draw()
         {
-            sprite.DrawTexture(texture, 0, 0, texture.Width, texture.Height);
+			sprite.DrawTexture (texture, 0, 0, texture.Width, texture.Height);
         }
     }
 }

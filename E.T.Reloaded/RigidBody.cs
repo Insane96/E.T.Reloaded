@@ -3,70 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Aiv.Fast2D;
 using OpenTK;
 
 namespace E.T.Reloaded
 {
-    public class RigidBody : IUpdatable
+    public class RigidBody
     {
-        protected Vector2 velocity;
-        public Vector2 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
-        protected Obj2D parent;
-        protected float friction;
-        protected float minSpeed;
-        protected float maxSpeed;
+		// when higher than 0, the player is in jump mode
+		public float jumping{get; set;}
 
-        public RigidBody(Obj2D parentObj)
-        {
-            parent = parentObj;
-            friction = 880f;
-            minSpeed = 0.5f;
-            maxSpeed = 200.0f;
-        }
+		// check if the jump key is pressed or not
+		public bool jumpReleased {get; set;}
 
-        public void AddVelocity(Vector2 velAmount)
-        {
-            Velocity += velAmount;
-        }
+		// how much time we can stay in jump mode
+		public float jumpTime {get; set;}
 
-        protected float ComputeSpeed(ref float speedVal)
-        {
+		public float gravityForce {get; set;}
+		public float gravity{get; set;}
 
-            if (speedVal > 0.0f)
-            {
-                speedVal -= friction * GameManager.window.deltaTime;
-                if (speedVal < minSpeed)
-                    speedVal = 0.0f;
-                else if (speedVal > maxSpeed)
-                    speedVal = maxSpeed;
-            }
-            else if (speedVal < 0.0f)
-            {
-                speedVal += friction * GameManager.window.deltaTime;
-                if (speedVal > -minSpeed)
-                    speedVal = 0.0f;
-                else if (speedVal < -maxSpeed)
-                    speedVal = -maxSpeed;
-            }
+		// how much force we generate at the start of the jump
+		public float jumpForce{get; set;}
 
-            return speedVal;
+		// horizontal speed
+		public float speed{get; set;}
 
-        }
+		// fake collision
+		public float collisionLineDown{get; set;}
 
-        public void Update()
-        {
-            ComputeSpeed(ref velocity.X);
-            float newX = parent.Position.X + velocity.X * GameManager.window.deltaTime;
+		public float collisionLineTop{get; set;}
 
-            ComputeSpeed(ref velocity.Y);
-            velocity.Y += 1290.0f * GameManager.window.deltaTime;
-            float newY = parent.Position.Y + velocity.Y * GameManager.window.deltaTime;
-
-            parent.Position = new Vector2(newX, newY);
-        }
+		public RigidBody ()
+		{
+			jumpReleased = true;
+			jumpTime = 0.3f;
+			gravityForce = 2000f;
+			jumpForce = 3500f;
+			speed = 300;
+			collisionLineDown = 640;
+			collisionLineTop = 0;
+		}
     }
 }

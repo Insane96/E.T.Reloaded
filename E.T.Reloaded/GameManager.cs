@@ -10,32 +10,21 @@ namespace E.T.Reloaded
     public static class GameManager
     {
 		public static Window window;
-		//static FlyingBike p1;
-        static Bird enemyBird;
-        static FlappyBird enemyFlappyBird;
+		static FlyingBike p1;
 
         static GameManager()
         {
-            window = new Window(1280, 720, "Animations");
-			//p1 = new FlyingBike();
-            enemyBird = new Bird();
-            enemyFlappyBird = new FlappyBird();
+            window = new Window(720, 720, "Animations");
+			p1 = new FlyingBike();
         }
 
         public static void Play()
         {
             while (window.opened)
             {
-				//p1.Update ();
-				//p1.Draw ();
-
-                enemyBird.Update();
-                enemyBird.Draw();
-
-                enemyFlappyBird.Update();
-                enemyFlappyBird.Draw();
-
-                window.Update();
+				p1.Update ();
+				p1.Draw ();
+				window.Update();
             }
         }
     }
