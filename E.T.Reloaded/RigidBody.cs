@@ -55,6 +55,7 @@ namespace E.T.Reloaded
 
             return speedVal;
 
+<<<<<<< HEAD
         }
 
         public void Update()
@@ -68,5 +69,19 @@ namespace E.T.Reloaded
 
             parent.Position = new Vector2(newX, newY);
         }
+=======
+		// fake collision
+		public float collisionLine{get; set;}
+
+		public RigidBody ()
+		{
+			jumpReleased = true;
+			jumpTime = 0.3f;
+			gravityForce = 2000f;
+			jumpForce = 3500f;
+			speed = 300;
+			collisionLine = 640;
+		}
+>>>>>>> parent of ddaa95f... Add FlyingBike
     }
 }

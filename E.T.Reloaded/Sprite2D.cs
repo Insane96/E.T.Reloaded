@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace E.T.Reloaded
 {
+<<<<<<< HEAD
     public class Sprite2D : Obj2D, IDrawable
+=======
+    public class Sprite2D:Obj2D
+>>>>>>> parent of ddaa95f... Add FlyingBike
     {
         public Texture texture { get; set; }
         public Sprite sprite { get; protected set; }
