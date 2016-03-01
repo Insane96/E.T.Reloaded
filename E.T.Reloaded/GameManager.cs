@@ -10,7 +10,6 @@ namespace E.T.Reloaded
     public static class GameManager
     {
 		public static Window window;
-<<<<<<< HEAD
 		//static FlyingBike p1;
         static Bird enemyBird;
         static FlappyBird enemyFlappyBird;
@@ -21,14 +20,6 @@ namespace E.T.Reloaded
 			//p1 = new FlyingBike();
             enemyBird = new Bird();
             enemyFlappyBird = new FlappyBird();
-=======
-		static Player p1;
-
-        static GameManager()
-        {
-            window = new Window(720, 720, "Animations");
-			p1 = new Player();
->>>>>>> parent of ddaa95f... Add FlyingBike
         }
 
         public static void Play()
