@@ -10,12 +10,12 @@ namespace E.T.Reloaded
     public static class GameManager
     {
 		public static Window window;
-		static FlyingBike p1;
+		static Player p1;
 
         static GameManager()
         {
             window = new Window(720, 720, "Animations");
-			p1 = new FlyingBike();
+			p1 = new Player();
         }
 
         public static void Play()

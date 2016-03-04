@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E.T.Reloaded
 {
-	public class Sprite2D:Obj2D, IDrawable
+    public class Sprite2D:Obj2D
     {
 		public Texture texture{ get; set;}
 		public Sprite sprite{ get; set;}
