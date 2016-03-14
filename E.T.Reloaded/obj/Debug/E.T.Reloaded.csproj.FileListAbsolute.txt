@@ -1,1 +1,2 @@
 C:\Users\AIV Students\etreloaded\E.T.Reloaded\bin\Debug\E.T.Reloaded.exe.config
+C:\Users\redsa\OneDrive\Documenti\Visual Studio 2015\Projects\ETReloaded\E.T.Reloaded\E.T.Reloaded\bin\Debug\E.T.Reloaded.exe.config
