@@ -7,22 +7,19 @@ using Aiv.Fast2D;
 
 namespace E.T.Reloaded
 {
-    class GameLevel
+    public abstract class GameLevel
     {
-        public bool IsPlaying { get; protected set; }
-        public GameLevel()
+        protected Room Current;
+        private Player player;
+
+        public void Update()
         {
-            IsPlaying = true;
+            Current = Current.Update(); //aggiorna player, aggiorna stanza corrente
         }
 
-        public virtual void Reset()
+        public void Draw()
         {
-            IsPlaying = true;
-
+            Current.Draw();
         }
-
-        public virtual void Update() { }
-
-        public virtual void Draw() { }
     }
 }
